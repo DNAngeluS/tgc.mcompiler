@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: ./
+      args:
+        PROJECT: '${PROJECT:-Game}'
+        UID: '${UID:-1000}'
+        GID: '${GID:-1000}'
+    image: 'tgc/compiler:${TAG:-latest}'
+    volumes:
+      - type: bind
+        source: './${PROJECT:-Game}/Content/Effects'
+        target: '/home/wine/${PROJECT:-Game}/Content/Effects'
+    container_name: tgc.compiler
+    restart: 'no'
+    environment:
+      PROJECT: '${PROJECT:-Game}'
+      DISPLAY: '${DISPLAY:-:0}'
+      MGFXC_WINE_PATH: '/home/wine/.winemonogame'
+# volumes:
+#   effects:
